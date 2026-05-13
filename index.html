@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Halls of the Forgotten</title>
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Halls of the Forgotten</h1>
+        <p>Turn-based 128×128 dungeon crawler inspired by the DOMECS roguelike exemplar.</p>
+      </div>
+      <nav>
+        <button id="new-run">New run</button>
+        <button id="save-run">Save</button>
+        <button id="load-run">Load/import</button>
+        <button id="inventory">Inventory <kbd>i</kbd></button>
+        <button id="help">Help <kbd>?</kbd></button>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="game-panel" aria-label="Dungeon viewport">
+        <div id="viewport" class="viewport" role="grid" aria-label="48 by 32 visible dungeon viewport"></div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="card">
+          <h2>Status</h2>
+          <div id="hud"></div>
+        </section>
+
+        <section class="card">
+          <h2>Message log</h2>
+          <ol id="log" class="log"></ol>
+        </section>
+
+        <section class="card save-card">
+          <h2>Save blob</h2>
+          <p>Save/load is a single deterministic JSON blob. Copy it to export your run.</p>
+          <textarea id="save-blob" spellcheck="false"></textarea>
+        </section>
+      </aside>
+    </main>
+
+    <div id="tooltip" class="tooltip" hidden></div>
+
+    <dialog-like id="inventory-modal" class="modal" hidden>
+      <div class="modal-card wide">
+        <header>
+          <h2>Inventory</h2>
+          <button data-close="inventory-modal" aria-label="Close inventory">×</button>
+        </header>
+        <div id="inventory-list"></div>
+      </div>
+    </dialog-like>
+
+    <dialog-like id="help-modal" class="modal" hidden>
+      <div class="modal-card">
+        <header>
+          <h2>How to play</h2>
+          <button data-close="help-modal" aria-label="Close help">×</button>
+        </header>
+        <ul>
+          <li><kbd>Arrow keys</kbd>, <kbd>WASD</kbd>, or <kbd>HJKL</kbd> move/bump attack.</li>
+          <li><kbd>.</kbd> or <kbd>Space</kbd> waits. No simulation advances until you act.</li>
+          <li><kbd>g</kbd> picks up items. Echo shards are collected automatically.</li>
+          <li><kbd>i</kbd> opens inventory. Potions and scrolls identify themselves when used.</li>
+          <li><kbd>&gt;</kbd> descends stairs. Escape with a true memory from floor 6.</li>
+          <li>Hover cells for rich tooltips. Death deletes the active save but banks echoes for future max-HP bonuses.</li>
+        </ul>
+      </div>
+    </dialog-like>
+
+    <dialog-like id="end-modal" class="modal" hidden>
+      <div class="modal-card">
+        <header><h2 id="end-title">Run ended</h2></header>
+        <div id="end-body"></div>
+        <button id="end-new-run">Begin another run</button>
+      </div>
+    </dialog-like>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
